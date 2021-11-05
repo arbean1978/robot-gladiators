@@ -57,6 +57,8 @@ var fight = function(enemyName) {
         console.log("playerMoney", playerMoney);
         break;
        }
+    for(var i = 0; i < enemyNames.length; i++) {
+      fight(enemyNames[i]);
     }  
 
         // award player money for winning
