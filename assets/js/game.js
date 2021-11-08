@@ -1,30 +1,11 @@
-var playerInfo = {
-  name: window.prompt("What is your robot's name?"),
-  health: 100;
-  attack: 10,
-  money: 10
+var randomNumber = function(min,max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
 };
-
-// Y,ou can also log multiple values at once like this
-console.log(playerInfo.name, playerInfo.attack, playerInfo.health);
-
-var enemyInfo = [
-  {
-    name: "Roberto",
-    attack: randomNumber(10, 14)
-  },
-  {
-    name: "Amy Android",
-    attack: randomNumber(10, 14)
-  },
-  {
-    name: "Robo Trumble",
-    attack: randomNumber(10, 14)
-  }
-];
-
+//fight funtion
 var fight = function(enemy) {
-  while (playerInfo.health > 0 && enemyHealth > 0) {
+  while (playerInfo.health > 0 && enemy.health > 0) {
     // ask player if they'd like to fight or run
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
@@ -43,7 +24,7 @@ var fight = function(enemy) {
       }
     }
     //generate random value based on player's attack power
-    var damage = randomNumber(playerinfo.attack - 3, playerInfo.attack);
+    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
     // remove enemy's health by subtracting the amount set in the playerAttack variable
     enemy.health = Math.max(0, enemy.health - damage);
@@ -87,7 +68,7 @@ var startGame = function() {
   playerInfo.reset();
 
 for (var i = 0; i < enemyInfo.length; i++) {
-  if (playerInfo.health > 0) 
+  if (playerInfo.health > 0) {
     //let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
     window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
 
@@ -107,14 +88,17 @@ for (var i = 0; i < enemyInfo.length; i++) {
 
       //if yes, take them to the store() function
       if (storeConfirm) {
-      shop();
+        shop();
+      }
     }
-    }
-    else {
-      window.alert("You have lost your robot in battle! Game Over!");
-    break;
   }
-}
+  //if player is not alive break out of the loop
+      else {
+      window.alert("You have lost your robot in battle! Game Over!");
+      break;
+    }
+  }
+
     //start the game when the page loads
     endGame();
     };
@@ -155,7 +139,6 @@ for (var i = 0; i < enemyInfo.length; i++) {
       case "UPGRADE": // new case
       case "upgrade":
         playerInfo.upgradeAttack();
-        if (playerInfo.money >= 7) {
         break;
       case "LEAVE":
       case "leave":
@@ -171,17 +154,19 @@ for (var i = 0; i < enemyInfo.length; i++) {
         break;
       }
     };
-        startGame();
 
-        //function to generate a random numeric value
-        var randomNumber = function(min,max) {
-        var value = Math.floor(Math.random() * (max - min + 1) + min);
+      //function to set name
+      var getPlayerName = function() {
+        var name ="";
+      while (name === "" || name === null) {
+        name = prompt("What is your robot's name?");
+      }  
+      
+      
 
-        return value;
-    };
-
+      //function to generate a random numeric value
         var playerInfo = {
-        name: window.prompt("What is your robot's name?"),
+        name: getPlayerName(),
         health: 100,
         attack: 10,
         money: 10,
@@ -210,7 +195,8 @@ for (var i = 0; i < enemyInfo.length; i++) {
           else {
             window.alert("You don't have enough money!")
           }
-        },
+        }
+      };
 
         var enemyInfo = [
         {
@@ -226,6 +212,11 @@ for (var i = 0; i < enemyInfo.length; i++) {
         attack: randomNumber(10, 14)
         }
       ];
+
+      console.log(enemyInfo);
+      console.log(enemyInfo[0]);
+      console.log(enemyInfo[0].name);
+      console.log(enemyInfo[0]['attack']);
 
         //start first game when page loads
         startGame();
