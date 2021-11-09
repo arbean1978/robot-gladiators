@@ -31,25 +31,17 @@ var fightOrSkip = function() {
 }
 //fight funtion
 var fight = function(enemy) {
+  //keeptrack of who goes first
+  var isPlayerTurn= true;
+  if (Math.random() > 0.5) {
+    isPlayerTurn = false;
+  }
   while (playerInfo.health > 0 && enemy.health > 0) {
-    if (fightOrSkip());
-    break;
-
-    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-
-      // confirm player wants to skip
-      var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-      // if yes (true), leave fight
-      if (confirmSkip) {
-        window.alert(playerInfo.name + ' has decided to skip this fight. Goodbye!');
-        // subtract money from playerMoney for skipping
-        playerInfo.money = Math.max(playerInfo.money - 10);
-        console.log("playerMoney", playerInfo.money)
-        break;
-      }
+    if (isPlayerTurn) {
+      //ask player if theyd like to fight or skip
+      if (fightOrSkip());
+      break;
     }
-    //generate random value based on player's attack power
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
     // remove enemy's health by subtracting the amount set in the playerAttack variable
@@ -71,6 +63,8 @@ var fight = function(enemy) {
     } else {
       window.alert(enemy.name + ' still has ' + enemy.health + ' health left.');
     }
+    //player gets attacked first
+    } else {
     var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
     // remove players's health by subtracting the amount set in the enemyAttack variable
@@ -87,7 +81,12 @@ var fight = function(enemy) {
     } else {
       window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
     }
-  };
+  }
+  //switch turn order for next round
+  isPlayerTurn = !isPlayerTurn;
+
+};
+
 
 // run fight function to start game
 var startGame = function() {
